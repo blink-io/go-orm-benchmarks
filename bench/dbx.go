@@ -52,6 +52,8 @@ func (db *Dbx) Insert(b *testing.B) {
 		if err != nil {
 			helper.SetError(b, db.Name(), "Insert", err.Error())
 		}
+		// Reset ID
+		m.ID = 0
 	}
 }
 
@@ -123,6 +125,8 @@ func (db *Dbx) ReadSlice(b *testing.B) {
 		if err != nil {
 			helper.SetError(b, db.Name(), "ReadSlice", err.Error())
 		}
+		// Reset PK to 0
+		m.ID = 0
 	}
 
 	b.ReportAllocs()
