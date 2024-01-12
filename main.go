@@ -28,6 +28,7 @@ var defaultBenchmarkNames = []string{
 	"raw", "reform", "rel", "sqlboiler",
 	"sqlc", "sqlx", "upper", "xorm",
 	"zorm", "gen", "jet", "goqu",
+	"dbx",
 }
 
 type ListOpts []string

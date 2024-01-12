@@ -245,7 +245,7 @@ func NewModelJet() *jetmodel.Models {
 
 // Model8 for dbx
 type Model8 struct {
-	ID      int    `db:"pk"`
+	ID      int    `db:"id"`
 	Name    string `db:"name"`
 	Title   string `db:"title"`
 	Fax     string `db:"fax"`
