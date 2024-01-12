@@ -1,5 +1,5 @@
 # Define specific args for benchmark
-FROM golang:alpine
+FROM golang:1.21-alpine
 
 # Define env vars
 ARG ORM
