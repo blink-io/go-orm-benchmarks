@@ -2,6 +2,7 @@ package bench
 
 import (
 	"context"
+
 	"gitee.com/chunanyong/zorm"
 	jetmodel "github.com/efectn/go-orm-benchmarks/bench/jet/test/public/model"
 	r "github.com/efectn/go-orm-benchmarks/bench/reform"
@@ -10,9 +11,9 @@ import (
 
 var ctx = context.Background()
 
-// Model for GORM, GORP, Beego, Bun, Pg, Raw, Sqlc, Ent
+// Model for GORM, GORP, Beego, Bun, Pg, Raw, Sqlc, Ent, Goqu
 type Model struct {
-	Id      int `orm:"auto" gorm:"primary_key" db:"id" bun:",pk,autoincrement"`
+	Id      int `orm:"auto" gorm:"primary_key" db:"id" bun:",pk,autoincrement" goqu:"skipinsert"`
 	Name    string
 	Title   string
 	Fax     string

@@ -11,8 +11,6 @@ import (
 
 var columns = []string{"name", "title", "fax", "web", "age", "right", "counter"}
 
-var columnsAny = []any{"name", "title", "fax", "web", "age", "right", "counter"}
-
 type Dbr struct {
 	helper.ORMInterface
 	conn *dbrware.Session

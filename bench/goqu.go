@@ -9,6 +9,8 @@ import (
 	_ "github.com/jackc/pgx/v4/stdlib"
 )
 
+var columnsAny = []any{"name", "title", "fax", "web", "age", "right", "counter"}
+
 type Goqu struct {
 	helper.ORMInterface
 	conn *goquware.Database
@@ -43,7 +45,7 @@ func (gq *Goqu) Close() error {
 }
 
 func (gq *Goqu) Insert(b *testing.B) {
-	m := NewModel2()
+	m := NewModel()
 
 	b.ReportAllocs()
 	b.ResetTimer()
@@ -57,12 +59,38 @@ func (gq *Goqu) Insert(b *testing.B) {
 	}
 }
 
+func modelsToAnySlice(ms []*Model) []any {
+	as := make([]any, len(ms))
+	for i, m := range ms {
+		as[i] = m
+	}
+	return as
+}
+
 func (gq *Goqu) InsertMulti(b *testing.B) {
-	helper.SetError(b, gq.Name(), "InsertMulti", "bulk-insert is not supported")
+	ms := make([]*Model, 0, 100)
+	for i := 0; i < 100; i++ {
+		ms = append(ms, NewModel())
+	}
+
+	b.ReportAllocs()
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		for _, m := range ms {
+			m.Id = 0
+		}
+
+		_, err := gq.conn.Insert("models").
+			Cols(columnsAny...).Rows(modelsToAnySlice(ms)...).Executor().Exec()
+		if err != nil {
+			helper.SetError(b, gq.Name(), "InsertMulti", err.Error())
+		}
+	}
 }
 
 func (gq *Goqu) Update(b *testing.B) {
-	m := NewModel2()
+	m := NewModel()
 
 	_, err := gq.conn.Insert("models").
 		Cols(columnsAny...).Rows(m).Executor().Exec()
@@ -90,7 +118,7 @@ func (gq *Goqu) Update(b *testing.B) {
 }
 
 func (gq *Goqu) Read(b *testing.B) {
-	m := NewModel2()
+	m := NewModel()
 
 	_, err := gq.conn.Insert("models").Cols(columnsAny...).Rows(m).Executor().Exec()
 	if err != nil {
@@ -102,7 +130,7 @@ func (gq *Goqu) Read(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		_, err := gq.conn.From("models").Select(goquware.Star()).
-			Where(goquware.C("id").Eq(m.ID)).ScanStruct(m)
+			Where(goquware.C("id").Eq(m.Id)).ScanStruct(m)
 		if err != nil {
 			helper.SetError(b, gq.Name(), "Read", err.Error())
 		}
@@ -110,7 +138,7 @@ func (gq *Goqu) Read(b *testing.B) {
 }
 
 func (gq *Goqu) ReadSlice(b *testing.B) {
-	m := NewModel2()
+	m := NewModel()
 	for i := 0; i < 100; i++ {
 		_, err := gq.conn.Insert("models").Cols(columnsAny...).Rows(m).Executor().Exec()
 		if err != nil {
