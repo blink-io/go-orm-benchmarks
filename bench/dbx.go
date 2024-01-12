@@ -131,7 +131,7 @@ func (db *Dbx) ReadSlice(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		var ms []*Model2
 		err := db.conn.Select().From("models").
-			Where(dbxware.NewExp("id>0")).Limit(100).All(ms)
+			Where(dbxware.NewExp("id>0")).Limit(100).All(&ms)
 		if err != nil {
 			helper.SetError(b, db.Name(), "ReadSlice", err.Error())
 		}
