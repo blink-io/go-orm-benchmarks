@@ -125,6 +125,7 @@ func runBenchmarks(orms ListOpts) {
 		"zorm":      bench.CreateZorm(),
 		"gen":       bench.CreateGen(),
 		"jet":       bench.CreateJet(),
+		"goqu":      bench.CreateGoqu(),
 	}
 
 	table := new(tabwriter.Writer)

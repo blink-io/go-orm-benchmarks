@@ -6,6 +6,7 @@ require (
 	entgo.io/ent v0.12.3
 	gitee.com/chunanyong/zorm v1.6.9
 	github.com/astaxie/beego v1.12.3
+	github.com/doug-martin/goqu/v9 v9.19.0
 	github.com/friendsofgo/errors v0.9.2
 	github.com/go-jet/jet/v2 v2.10.1
 	github.com/go-pg/pg/v10 v10.11.1
