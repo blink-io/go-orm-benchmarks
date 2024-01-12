@@ -13,7 +13,7 @@ var ctx = context.Background()
 
 // Model for GORM, GORP, Beego, Bun, Pg, Raw, Sqlc, Ent, Goqu
 type Model struct {
-	Id      int `orm:"auto" gorm:"primary_key" db:"id,pk" bun:",pk,autoincrement" goqu:"skipinsert"`
+	Id      int `orm:"auto" gorm:"primary_key" db:"id" bun:",pk,autoincrement" goqu:"skipinsert"`
 	Name    string
 	Title   string
 	Fax     string
@@ -232,6 +232,31 @@ func NewReformModel() *r.ReformModels {
 
 func NewModelJet() *jetmodel.Models {
 	m := new(jetmodel.Models)
+	m.Name = "Orm Benchmark"
+	m.Title = "Just a Benchmark for fun"
+	m.Fax = "99909990"
+	m.Web = "http://blog.milkpod29.me"
+	m.Age = 100
+	m.Right = true
+	m.Counter = 1000
+
+	return m
+}
+
+// Model8 for dbx
+type Model8 struct {
+	ID      int    `db:"pk"`
+	Name    string `db:"name"`
+	Title   string `db:"title"`
+	Fax     string `db:"fax"`
+	Web     string `db:"web"`
+	Age     int    `db:"age"`
+	Right   bool   `db:"right"`
+	Counter int64  `db:"counter"`
+}
+
+func NewModel8() *Model8 {
+	m := new(Model8)
 	m.Name = "Orm Benchmark"
 	m.Title = "Just a Benchmark for fun"
 	m.Fax = "99909990"

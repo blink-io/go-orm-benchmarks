@@ -42,7 +42,7 @@ func (db *Dbx) Close() error {
 }
 
 func (db *Dbx) Insert(b *testing.B) {
-	m := NewModel()
+	m := NewModel8()
 
 	b.ReportAllocs()
 	b.ResetTimer()
@@ -79,7 +79,7 @@ func (db *Dbx) InsertMulti(b *testing.B) {
 }
 
 func (db *Dbx) Update(b *testing.B) {
-	m := NewModel()
+	m := NewModel8()
 
 	err := db.conn.Model(m).Insert(columns...)
 	if err != nil {
@@ -98,7 +98,7 @@ func (db *Dbx) Update(b *testing.B) {
 }
 
 func (db *Dbx) Read(b *testing.B) {
-	m := NewModel()
+	m := NewModel8()
 
 	err := db.conn.Model(m).Insert(columns...)
 	if err != nil {
@@ -109,7 +109,7 @@ func (db *Dbx) Read(b *testing.B) {
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
-		err := db.conn.Select().Model(m.Id, m)
+		err := db.conn.Select().Model(m.ID, m)
 		if err != nil {
 			helper.SetError(b, db.Name(), "Read", err.Error())
 		}
@@ -117,7 +117,7 @@ func (db *Dbx) Read(b *testing.B) {
 }
 
 func (db *Dbx) ReadSlice(b *testing.B) {
-	m := NewModel()
+	m := NewModel8()
 	for i := 0; i < 100; i++ {
 		err := db.conn.Model(m).Insert(columns...)
 		if err != nil {
