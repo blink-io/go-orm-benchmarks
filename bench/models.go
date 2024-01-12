@@ -13,7 +13,7 @@ var ctx = context.Background()
 
 // Model for GORM, GORP, Beego, Bun, Pg, Raw, Sqlc, Ent, Goqu
 type Model struct {
-	Id      int `orm:"auto" gorm:"primary_key" db:"id" bun:",pk,autoincrement" goqu:"skipinsert"`
+	Id      int `orm:"auto" gorm:"primary_key" db:"id,pk" bun:",pk,autoincrement" goqu:"skipinsert"`
 	Name    string
 	Title   string
 	Fax     string
