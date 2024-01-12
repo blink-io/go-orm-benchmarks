@@ -2,7 +2,6 @@ module github.com/efectn/go-orm-benchmarks
 
 go 1.21
 
-toolchain go1.21.6
 
 require (
 	entgo.io/ent v0.12.5
