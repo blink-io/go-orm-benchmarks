@@ -268,6 +268,10 @@ func NewModel8() *Model8 {
 	return m
 }
 
-func (c Model8) TableName() string {
+func (Model8) Table() string {
+	return "models"
+}
+
+func (Model8) TableName() string {
 	return "models"
 }

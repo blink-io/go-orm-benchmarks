@@ -48,7 +48,7 @@ func (db *Dbx) Insert(b *testing.B) {
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
-		err := db.conn.Model(m).Insert(columns...)
+		err := db.conn.Model(m).Insert()
 		if err != nil {
 			helper.SetError(b, db.Name(), "Insert", err.Error())
 		}
@@ -81,7 +81,7 @@ func (db *Dbx) InsertMulti(b *testing.B) {
 func (db *Dbx) Update(b *testing.B) {
 	m := NewModel8()
 
-	err := db.conn.Model(m).Insert(columns...)
+	err := db.conn.Model(m).Insert()
 	if err != nil {
 		helper.SetError(b, db.Name(), "Update", err.Error())
 	}
@@ -100,7 +100,7 @@ func (db *Dbx) Update(b *testing.B) {
 func (db *Dbx) Read(b *testing.B) {
 	m := NewModel8()
 
-	err := db.conn.Model(m).Insert(columns...)
+	err := db.conn.Model(m).Insert()
 	if err != nil {
 		helper.SetError(b, db.Name(), "Read", err.Error())
 	}
@@ -119,7 +119,7 @@ func (db *Dbx) Read(b *testing.B) {
 func (db *Dbx) ReadSlice(b *testing.B) {
 	m := NewModel8()
 	for i := 0; i < 100; i++ {
-		err := db.conn.Model(m).Insert(columns...)
+		err := db.conn.Model(m).Insert()
 		if err != nil {
 			helper.SetError(b, db.Name(), "ReadSlice", err.Error())
 		}
@@ -129,7 +129,7 @@ func (db *Dbx) ReadSlice(b *testing.B) {
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
-		var ms []*Model2
+		var ms []*Model8
 		err := db.conn.Select().From("models").
 			Where(dbxware.NewExp("id>0")).Limit(100).All(&ms)
 		if err != nil {
