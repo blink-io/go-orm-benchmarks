@@ -27,7 +27,7 @@ var defaultBenchmarkNames = []string{
 	"pg", "pgx", "pgx_pool", "pop",
 	"raw", "reform", "rel", "sqlboiler",
 	"sqlc", "sqlx", "upper", "xorm",
-	"zorm", "gen", "jet", "goqu", "dbx",
+	"zorm", "gen", "jet", "goqu",
 }
 
 type ListOpts []string
