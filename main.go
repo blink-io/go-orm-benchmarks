@@ -21,14 +21,19 @@ import (
 // VERSION constant
 const VERSION = "v1.0.2"
 
+//var defaultBenchmarkNames = []string{
+//	"beego", "bun", "dbr", "ent",
+//	"godb", "gorm", "gorm_prep", "gorp",
+//	"pg", "pgx", "pgx_pool", "pop",
+//	"raw", "reform", "rel", "sqlboiler",
+//	"sqlc", "sqlx", "upper", "xorm",
+//	"zorm", "gen", "jet", "goqu",
+//	"dbx",
+//}
+
+// Just runs what I want
 var defaultBenchmarkNames = []string{
-	"beego", "bun", "dbr", "ent",
-	"godb", "gorm", "gorm_prep", "gorp",
-	"pg", "pgx", "pgx_pool", "pop",
-	"raw", "reform", "rel", "sqlboiler",
-	"sqlc", "sqlx", "upper", "xorm",
-	"zorm", "gen", "jet", "goqu",
-	"dbx",
+	"bun", "dbr", "dbx", "goqu", "rel", "pop", "sqlc",
 }
 
 type ListOpts []string
