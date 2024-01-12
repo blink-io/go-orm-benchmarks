@@ -3,7 +3,7 @@ module github.com/efectn/go-orm-benchmarks
 go 1.20
 
 require (
-	entgo.io/ent v0.12.3
+	entgo.io/ent v0.12.5
 	gitee.com/chunanyong/zorm v1.6.9
 	github.com/astaxie/beego v1.12.3
 	github.com/doug-martin/goqu/v9 v9.19.0
@@ -34,7 +34,7 @@ require (
 )
 
 require (
-	ariga.io/atlas v0.12.0 // indirect
+	ariga.io/atlas v0.14.1-0.20230918065911-83ad451a4935 // indirect
 	github.com/Masterminds/semver/v3 v3.2.1 // indirect
 	github.com/agext/levenshtein v1.2.3 // indirect
 	github.com/apparentlymart/go-textseg/v13 v13.0.0 // indirect
