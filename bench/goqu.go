@@ -20,19 +20,19 @@ func CreateGoqu() helper.ORMInterface {
 	return &Goqu{}
 }
 
-func (gq *Goqu) Name() string {
+func (db *Goqu) Name() string {
 	return "goqu"
 }
 
-func (gq *Goqu) Init() error {
+func (db *Goqu) Init() error {
 	dialect := "postgres"
 	conn, err := sql.Open(dialect, helper.OrmSource)
 	if err != nil {
 		return err
 	}
 
-	gq.conn = goquware.New(dialect, conn)
-	_, err = gq.conn.Begin()
+	db.conn = goquware.New(dialect, conn)
+	_, err = db.conn.Begin()
 	if err != nil {
 		return err
 	}
@@ -40,21 +40,21 @@ func (gq *Goqu) Init() error {
 	return nil
 }
 
-func (gq *Goqu) Close() error {
+func (db *Goqu) Close() error {
 	return nil
 }
 
-func (gq *Goqu) Insert(b *testing.B) {
+func (db *Goqu) Insert(b *testing.B) {
 	m := NewModel()
 
 	b.ReportAllocs()
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
-		_, err := gq.conn.Insert("models").
+		_, err := db.conn.Insert("models").
 			Cols(columnsAny...).Rows(m).Executor().Exec()
 		if err != nil {
-			helper.SetError(b, gq.Name(), "Insert", err.Error())
+			helper.SetError(b, db.Name(), "Insert", err.Error())
 		}
 	}
 }
@@ -67,7 +67,7 @@ func modelsToAnySlice(ms []*Model) []any {
 	return as
 }
 
-func (gq *Goqu) InsertMulti(b *testing.B) {
+func (db *Goqu) InsertMulti(b *testing.B) {
 	ms := make([]*Model, 0, 100)
 	for i := 0; i < 100; i++ {
 		ms = append(ms, NewModel())
@@ -81,28 +81,28 @@ func (gq *Goqu) InsertMulti(b *testing.B) {
 			m.Id = 0
 		}
 
-		_, err := gq.conn.Insert("models").
+		_, err := db.conn.Insert("models").
 			Cols(columnsAny...).Rows(modelsToAnySlice(ms)...).Executor().Exec()
 		if err != nil {
-			helper.SetError(b, gq.Name(), "InsertMulti", err.Error())
+			helper.SetError(b, db.Name(), "InsertMulti", err.Error())
 		}
 	}
 }
 
-func (gq *Goqu) Update(b *testing.B) {
+func (db *Goqu) Update(b *testing.B) {
 	m := NewModel()
 
-	_, err := gq.conn.Insert("models").
+	_, err := db.conn.Insert("models").
 		Cols(columnsAny...).Rows(m).Executor().Exec()
 	if err != nil {
-		helper.SetError(b, gq.Name(), "Update", err.Error())
+		helper.SetError(b, db.Name(), "Update", err.Error())
 	}
 
 	b.ReportAllocs()
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
-		_, err := gq.conn.Update("models").Set(map[string]any{
+		_, err := db.conn.Update("models").Set(map[string]any{
 			"name":    m.Name,
 			"title":   m.Title,
 			"fax":     m.Fax,
@@ -112,37 +112,37 @@ func (gq *Goqu) Update(b *testing.B) {
 			"counter": m.Counter,
 		}).Executor().Exec()
 		if err != nil {
-			helper.SetError(b, gq.Name(), "Update", err.Error())
+			helper.SetError(b, db.Name(), "Update", err.Error())
 		}
 	}
 }
 
-func (gq *Goqu) Read(b *testing.B) {
+func (db *Goqu) Read(b *testing.B) {
 	m := NewModel()
 
-	_, err := gq.conn.Insert("models").Cols(columnsAny...).Rows(m).Executor().Exec()
+	_, err := db.conn.Insert("models").Cols(columnsAny...).Rows(m).Executor().Exec()
 	if err != nil {
-		helper.SetError(b, gq.Name(), "Read", err.Error())
+		helper.SetError(b, db.Name(), "Read", err.Error())
 	}
 
 	b.ReportAllocs()
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
-		_, err := gq.conn.From("models").Select(goquware.Star()).
+		_, err := db.conn.From("models").Select(goquware.Star()).
 			Where(goquware.C("id").Eq(m.Id)).ScanStruct(m)
 		if err != nil {
-			helper.SetError(b, gq.Name(), "Read", err.Error())
+			helper.SetError(b, db.Name(), "Read", err.Error())
 		}
 	}
 }
 
-func (gq *Goqu) ReadSlice(b *testing.B) {
+func (db *Goqu) ReadSlice(b *testing.B) {
 	m := NewModel()
 	for i := 0; i < 100; i++ {
-		_, err := gq.conn.Insert("models").Cols(columnsAny...).Rows(m).Executor().Exec()
+		_, err := db.conn.Insert("models").Cols(columnsAny...).Rows(m).Executor().Exec()
 		if err != nil {
-			helper.SetError(b, gq.Name(), "ReadSlice", err.Error())
+			helper.SetError(b, db.Name(), "ReadSlice", err.Error())
 		}
 	}
 
@@ -151,11 +151,11 @@ func (gq *Goqu) ReadSlice(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		var ms []*Model2
-		err := gq.conn.From("models").
+		err := db.conn.From("models").
 			Select(goquware.Star()).
 			Where(goquware.C("id").Gt(0)).Limit(100).ScanStructs(&ms)
 		if err != nil {
-			helper.SetError(b, gq.Name(), "ReadSlice", err.Error())
+			helper.SetError(b, db.Name(), "ReadSlice", err.Error())
 		}
 	}
 }
