@@ -58,7 +58,27 @@ func (dbr *Dbr) Insert(b *testing.B) {
 }
 
 func (dbr *Dbr) InsertMulti(b *testing.B) {
-	helper.SetError(b, dbr.Name(), "InsertMulti", "bulk-insert is not supported")
+	ms := make([]*Model2, 0, 100)
+	for i := 0; i < 100; i++ {
+		ms = append(ms, NewModel2())
+	}
+
+	b.ReportAllocs()
+	b.ResetTimer()
+
+	istmt := dbr.conn.InsertInto("models").
+		Columns(columns...)
+	for i := 0; i < b.N; i++ {
+		for _, m := range ms {
+			m.ID = 0
+			istmt.Record(m)
+		}
+
+		_, err := istmt.Exec()
+		if err != nil {
+			helper.SetError(b, dbr.Name(), "InsertMulti", err.Error())
+		}
+	}
 }
 
 func (dbr *Dbr) Update(b *testing.B) {

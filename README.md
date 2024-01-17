@@ -28,6 +28,9 @@ All package run in no-cache mode.
 - [zorm](https://gitee.com/chunanyong/zorm)
 - [gen](https://gorm.io/gen/index.html)
 - [jet](https://github.com/go-jet/jet)
+- [jet](https://github.com/go-jet/jet)
+- [goqu](https://github.com/doug-martin/goqu)
+- [dbx](https://github.com/pocketbase/dbx)
 
 See [`go.mod`](go.mod) for their latest versions.
 
