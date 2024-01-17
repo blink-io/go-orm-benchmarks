@@ -58,20 +58,22 @@ func (dbr *Dbr) Insert(b *testing.B) {
 }
 
 func (dbr *Dbr) InsertMulti(b *testing.B) {
+	istmt := dbr.conn.InsertInto("models").
+		Columns(columns...)
+
 	ms := make([]*Model2, 0, 100)
 	for i := 0; i < 100; i++ {
-		ms = append(ms, NewModel2())
+		m := NewModel2()
+		ms = append(ms, m)
+		istmt.Record(m)
 	}
 
 	b.ReportAllocs()
 	b.ResetTimer()
 
-	istmt := dbr.conn.InsertInto("models").
-		Columns(columns...)
 	for i := 0; i < b.N; i++ {
 		for _, m := range ms {
 			m.ID = 0
-			istmt.Record(m)
 		}
 
 		_, err := istmt.Exec()
