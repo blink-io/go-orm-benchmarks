@@ -59,30 +59,20 @@ func (db *Goqu) Insert(b *testing.B) {
 	}
 }
 
-func modelsToAnySlice(ms []*Model) []any {
-	as := make([]any, len(ms))
-	for i, m := range ms {
-		as[i] = m
-	}
-	return as
-}
-
 func (db *Goqu) InsertMulti(b *testing.B) {
-	ms := make([]*Model, 0, 100)
+	ms := make([]any, 0, 100)
 	for i := 0; i < 100; i++ {
-		ms = append(ms, NewModel())
+		mi := NewModel()
+		mi.Id = 0
+		ms = append(ms, mi)
 	}
 
 	b.ReportAllocs()
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
-		for _, m := range ms {
-			m.Id = 0
-		}
-
 		_, err := db.conn.Insert("models").
-			Cols(columnsAny...).Rows(modelsToAnySlice(ms)...).Executor().Exec()
+			Cols(columnsAny...).Rows(ms...).Executor().Exec()
 		if err != nil {
 			helper.SetError(b, db.Name(), "InsertMulti", err.Error())
 		}

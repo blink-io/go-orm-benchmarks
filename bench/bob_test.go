@@ -22,6 +22,11 @@ func BenchmarkBob(b *testing.B) {
 		panic(err)
 	}
 
+	err = helper.CreateTables()
+	if err != nil {
+		panic(err)
+	}
+
 	bb := CreateBob()
 	if err := bb.Init(); err != nil {
 		log.Fatal("init bob fail")

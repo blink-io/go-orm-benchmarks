@@ -21,21 +21,21 @@ import (
 // VERSION constant
 const VERSION = "v1.0.2"
 
-var defaultBenchmarkNames = []string{
-	"beego", "bun", "dbr", "ent",
-	"godb", "gorm", "gorm_prep", "gorp",
-	"pg", "pgx", "pgx_pool", "pop",
-	"raw", "reform", "rel", "sqlboiler",
-	"sqlc", "sqlx", "upper", "xorm",
-	"zorm", "gen", "jet", "goqu",
-	"dbx", "bob",
-}
+//var defaultBenchmarkNames = []string{
+//	"beego", "bun", "dbr", "ent",
+//	"godb", "gorm", "gorm_prep", "gorp",
+//	"pg", "pgx", "pgx_pool", "pop",
+//	"raw", "reform", "rel", "sqlboiler",
+//	"sqlc", "sqlx", "upper", "xorm",
+//	"zorm", "gen", "jet", "goqu",
+//	"dbx", "bob",
+//}
 
 // Just runs what I want
-//var defaultBenchmarkNames = []string{
-//	//"bun", "dbr", "dbx", "goqu", "rel", "pop", "sqlc",
-//	"bun", "ent", "bob", "gorm",
-//}
+var defaultBenchmarkNames = []string{
+	//"bun", "dbr", "dbx", "goqu", "rel", "pop", "sqlc",
+	"bob", "sqlc", "bun", "ent", "gorm",
+}
 
 type ListOpts []string
 
@@ -160,7 +160,7 @@ func runBenchmarks(orms ListOpts) {
 			_, _ = fmt.Fprintf(table, "%s Benchmark Results:\n", n)
 			for _, result := range res.Results {
 				if result.ErrorMsg == "" {
-					_, _ = fmt.Fprintf(table, "%s:\t%d\t%d ns/op\t%d B/op\t%d allocs/op\n", result.Method, result.N, result.NsPerOp, result.MemBytes, result.MemAllocs)
+					_, _ = fmt.Fprintf(table, "%s:\t%d\t%d\t%d ns/op\t%d B/op\t%d allocs/op\n", result.Method, result.T.Nanoseconds(), result.N, result.NsPerOp, result.MemBytes, result.MemAllocs)
 				} else {
 					_, _ = fmt.Fprintf(table, "%s:\t%s\n", result.Method, result.ErrorMsg)
 				}
@@ -186,7 +186,7 @@ func runBenchmarks(orms ListOpts) {
 		_, _ = fmt.Fprintf(table, "%s\n", method)
 		for _, result := range report {
 			if result.ErrorMsg == "" {
-				_, _ = fmt.Fprintf(table, "%s:\t%d\t%d ns/op\t%d B/op\t%d allocs/op\n", result.Name, result.N, result.NsPerOp, result.MemBytes, result.MemAllocs)
+				_, _ = fmt.Fprintf(table, "%s:\t%d\t%d\t%d ns/op\t%d B/op\t%d allocs/op\n", result.Name, result.T.Nanoseconds(), result.N, result.NsPerOp, result.MemBytes, result.MemAllocs)
 			} else {
 				_, _ = fmt.Fprintf(table, "%s:\t%s\n", result.Name, result.ErrorMsg)
 			}

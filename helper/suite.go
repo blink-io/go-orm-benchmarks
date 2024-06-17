@@ -2,6 +2,7 @@ package helper
 
 import (
 	"testing"
+	"time"
 )
 
 type ORMInterface interface {
@@ -26,6 +27,7 @@ type Result struct {
 	ErrorMsg string
 
 	N         int
+	T         time.Duration
 	NsPerOp   int64
 	MemAllocs int64
 	MemBytes  int64
@@ -76,6 +78,7 @@ func RunBenchmarks(orm ORMInterface, reports map[string]BenchmarkReport) (Benchm
 			Method:    method,
 			ErrorMsg:  GetError(orm.Name(), method),
 			N:         br.N,
+			T:         br.T,
 			NsPerOp:   br.NsPerOp(),
 			MemAllocs: br.AllocsPerOp(),
 			MemBytes:  br.AllocedBytesPerOp(),

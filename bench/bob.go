@@ -135,8 +135,11 @@ func (bob *Bob) Read(b *testing.B) {
 	b.ReportAllocs()
 	b.ResetTimer()
 
+	wq := models.SelectWhere.Models.ID.EQ(mr.ID)
+
 	for i := 0; i < b.N; i++ {
-		_, err := models.FindModel(ctx, bob.conn, mr.ID)
+		//_, err := models.FindModel(ctx, bob.conn, mr.ID)
+		_, err := models.Models.Query(ctx, bob.conn, wq).One()
 		if err != nil {
 			helper.SetError(b, bob.Name(), "Read", err.Error())
 		}
@@ -155,7 +158,7 @@ func (bob *Bob) ReadSlice(b *testing.B) {
 	b.ReportAllocs()
 	b.ResetTimer()
 
-	wq := models.SelectWhere.Models.ID.LT(0)
+	wq := models.SelectWhere.Models.ID.GT(0)
 
 	for i := 0; i < b.N; i++ {
 		//_, err := bob.conn.Select("*").From("models").Where("id > 0").Limit(100).Load(&ms)
