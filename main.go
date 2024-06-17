@@ -33,7 +33,8 @@ const VERSION = "v1.0.2"
 
 // Just runs what I want
 var defaultBenchmarkNames = []string{
-	"bun", "dbr", "dbx", "goqu", "rel", "pop", "sqlc",
+	//"bun", "dbr", "dbx", "goqu", "rel", "pop", "sqlc",
+	"bun", "ent", "bob", "gorm",
 }
 
 type ListOpts []string
@@ -133,6 +134,7 @@ func runBenchmarks(orms ListOpts) {
 		"jet":       bench.CreateJet(),
 		"goqu":      bench.CreateGoqu(),
 		"dbx":       bench.CreateDbx(),
+		"bob":       bench.CreateBob(),
 	}
 
 	table := new(tabwriter.Writer)

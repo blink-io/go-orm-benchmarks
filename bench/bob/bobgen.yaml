@@ -1,0 +1,21 @@
+psql:
+  dsn: "postgres://postgres:postgres@localhost:5432/test?sslmode=disable"
+  output: ./bench/bob/models
+
+wipe: true
+
+tags:
+  - json
+  - toml
+  - yaml
+  - msgpack
+  - bun
+
+#replacements:
+#  - tables: ["applications","users"]
+#    match:
+#      name: "guid"
+#
+#    replace:
+#      type: "uuid.UUID"
+#      imports: ['"github.com/google/uuid"']
