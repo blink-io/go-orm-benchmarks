@@ -34,7 +34,7 @@ func (bob *Bob) Init() error {
 	}
 
 	bob.conn = conn
-	bob.f = factory.New()
+	//bob.f = factory.New()
 	//_, err = bob.conn.Begin()
 	//if err != nil {
 	//	return err
@@ -48,12 +48,13 @@ func (bob *Bob) Close() error {
 }
 
 func (bob *Bob) Insert(b *testing.B) {
+	m := NewModelAlt()
 
 	b.ReportAllocs()
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
-		ms := newBobModelSetter()
+		ms := newBobModelSetter(&m)
 		_, err := models.Models.Insert(ctx, bob.conn, ms)
 		if err != nil {
 			helper.SetError(b, bob.Name(), "Insert", err.Error())
@@ -61,8 +62,11 @@ func (bob *Bob) Insert(b *testing.B) {
 	}
 }
 
-func newBobModelSetter() *models.ModelSetter {
-	mat := NewModelAlt()
+func newBobModelSetter(mat *Model) *models.ModelSetter {
+	if mat == nil {
+		m := NewModelAlt()
+		mat = &m
+	}
 	ms := &models.ModelSetter{
 		Name:    omit.From(mat.Name),
 		Title:   omit.From(mat.Title),
@@ -81,7 +85,7 @@ func (bob *Bob) InsertMulti(b *testing.B) {
 
 	bulk := make([]*models.ModelSetter, 100)
 	for i, _ := range bulk {
-		bulk[i] = newBobModelSetter()
+		bulk[i] = newBobModelSetter(nil)
 	}
 
 	for i := 0; i < b.N; i++ {
@@ -93,7 +97,7 @@ func (bob *Bob) InsertMulti(b *testing.B) {
 }
 
 func (bob *Bob) Update(b *testing.B) {
-	ms := newBobModelSetter()
+	ms := newBobModelSetter(nil)
 
 	mr, err := models.Models.Insert(ctx, bob.conn, ms)
 	if err != nil {
@@ -121,7 +125,7 @@ func (bob *Bob) Update(b *testing.B) {
 }
 
 func (bob *Bob) Read(b *testing.B) {
-	ms := newBobModelSetter()
+	ms := newBobModelSetter(nil)
 
 	mr, err := models.Models.Insert(ctx, bob.conn, ms)
 	if err != nil {
@@ -140,7 +144,7 @@ func (bob *Bob) Read(b *testing.B) {
 }
 
 func (bob *Bob) ReadSlice(b *testing.B) {
-	ms := newBobModelSetter()
+	ms := newBobModelSetter(nil)
 	for i := 0; i < 100; i++ {
 		_, err := models.Models.Insert(ctx, bob.conn, ms)
 		if err != nil {

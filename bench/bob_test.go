@@ -3,6 +3,7 @@ package bench
 import (
 	"github.com/efectn/go-orm-benchmarks/helper"
 	"log"
+	"runtime"
 	"testing"
 )
 
@@ -11,7 +12,16 @@ func TestBob(t *testing.T) {
 }
 
 func BenchmarkBob(b *testing.B) {
-	helper.OrmSource = "user=postgres password=postgres dbname=test sslmode=disable"
+	runtime.GOMAXPROCS(runtime.NumCPU())
+
+	helper.OrmSource = "user=postgres password=postgres host=localhost dbname=test sslmode=disable"
+
+	// Clean tables for each run
+	err := helper.CreateTables()
+	if err != nil {
+		panic(err)
+	}
+
 	bb := CreateBob()
 	if err := bb.Init(); err != nil {
 		log.Fatal("init bob fail")
