@@ -275,3 +275,29 @@ func (Model8) Table() string {
 func (Model8) TableName() string {
 	return "models"
 }
+
+// Model9 for ksql
+type Model9 struct {
+	ID      int    `ksql:"id"`
+	Name    string `ksql:"name"`
+	Title   string `ksql:"title"`
+	Fax     string `ksql:"fax"`
+	Web     string `ksql:"web"`
+	Age     int    `ksql:"age"`
+	Right   bool   `ksql:"right"`
+	Counter int64  `ksql:"counter"`
+}
+
+// NewModel9 for ksql
+func NewModel9() *Model9 {
+	m := new(Model9)
+	m.Name = "Orm Benchmark"
+	m.Title = "Just a Benchmark for fun"
+	m.Fax = "99909990"
+	m.Web = "http://blog.milkpod29.me"
+	m.Age = 100
+	m.Right = true
+	m.Counter = 1000
+
+	return m
+}

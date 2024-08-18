@@ -4,9 +4,10 @@ import (
 	"database/sql"
 	"testing"
 
-	goquware "github.com/doug-martin/goqu/v9"
 	"github.com/efectn/go-orm-benchmarks/helper"
-	_ "github.com/jackc/pgx/v4/stdlib"
+
+	goquware "github.com/doug-martin/goqu/v9"
+	_ "github.com/jackc/pgx/v5/stdlib"
 )
 
 var columnsAny = []any{"name", "title", "fax", "web", "age", "right", "counter"}

@@ -1,16 +1,16 @@
 package bench
 
 import (
-	"github.com/aarondl/opt/omit"
-	"github.com/efectn/go-orm-benchmarks/bench/bob/models"
-	"github.com/efectn/go-orm-benchmarks/bench/bob/models/factory"
-	"github.com/stephenafamo/bob/dialect/psql/sm"
 	"testing"
 
+	"github.com/efectn/go-orm-benchmarks/bench/bob/models"
+	"github.com/efectn/go-orm-benchmarks/bench/bob/models/factory"
 	"github.com/efectn/go-orm-benchmarks/helper"
 
-	_ "github.com/jackc/pgx/v4/stdlib"
+	"github.com/aarondl/opt/omit"
+	_ "github.com/jackc/pgx/v5/stdlib"
 	bobware "github.com/stephenafamo/bob"
+	"github.com/stephenafamo/bob/dialect/psql/sm"
 )
 
 type Bob struct {

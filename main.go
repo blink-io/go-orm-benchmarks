@@ -11,9 +11,8 @@ import (
 	"text/tabwriter"
 	"time"
 
-	"github.com/efectn/go-orm-benchmarks/helper"
-
 	"github.com/efectn/go-orm-benchmarks/bench"
+	"github.com/efectn/go-orm-benchmarks/helper"
 
 	_ "github.com/lib/pq"
 )
@@ -34,7 +33,7 @@ const VERSION = "v1.0.2"
 // Just runs what I want
 var defaultBenchmarkNames = []string{
 	//"bun", "dbr", "dbx", "goqu", "rel", "pop", "sqlc",
-	"bob", "sqlc", "bun", "ent", "gorm",
+	"bob", "sqlc", "bun", "ent", "gorm", "ksql", "pop", "sqlx",
 }
 
 type ListOpts []string
@@ -135,6 +134,7 @@ func runBenchmarks(orms ListOpts) {
 		"goqu":      bench.CreateGoqu(),
 		"dbx":       bench.CreateDbx(),
 		"bob":       bench.CreateBob(),
+		"ksql":      bench.CreateKsql(),
 	}
 
 	table := new(tabwriter.Writer)

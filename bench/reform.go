@@ -2,11 +2,12 @@ package bench
 
 import (
 	"database/sql"
-	"github.com/efectn/go-orm-benchmarks/helper"
 	"testing"
 
 	r "github.com/efectn/go-orm-benchmarks/bench/reform"
-	_ "github.com/jackc/pgx/v4/stdlib"
+	"github.com/efectn/go-orm-benchmarks/helper"
+
+	_ "github.com/jackc/pgx/v5/stdlib"
 	"gopkg.in/reform.v1/dialects/postgresql"
 
 	reformware "gopkg.in/reform.v1"
