@@ -7,7 +7,7 @@ import (
 
 	_ "github.com/jackc/pgx/v5/stdlib"
 	"github.com/vingarcia/ksql"
-	"github.com/vingarcia/ksql/adapters/kpgx"
+	"github.com/vingarcia/ksql/adapters/kpgx5"
 )
 
 var ModelTable = ksql.NewTable("models")
