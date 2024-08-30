@@ -33,7 +33,8 @@ const VERSION = "v1.0.2"
 // Just runs what I want
 var defaultBenchmarkNames = []string{
 	//"bun", "dbr", "dbx", "goqu", "rel", "pop", "sqlc",
-	"raw", "dbr", "sq", "bob", "sqlc", "bun", "ent", "gorm", "ksql", "pop", "sqlx", "pgx",
+	//"raw", "dbr", "sq", "bob", "sqlc", "bun", "ent", "gorm", "ksql", "pop", "sqlx", "pgx",
+	"raw", "dbr", "sq", "sqlx", "bun",
 }
 
 type ListOpts []string
