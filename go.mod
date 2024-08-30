@@ -1,14 +1,13 @@
 module github.com/efectn/go-orm-benchmarks
 
-go 1.22.5
-
-toolchain go1.23.0
+go 1.23.0
 
 require (
-	entgo.io/ent v0.14.0
+	entgo.io/ent v0.14.1
 	gitee.com/chunanyong/zorm v1.7.7
 	github.com/aarondl/opt v0.0.0-20240623220848-083f18ab9536
 	github.com/astaxie/beego v1.12.3
+	github.com/bokwoon95/sq v0.5.0
 	github.com/doug-martin/goqu/v9 v9.19.0
 	github.com/friendsofgo/errors v0.9.2
 	github.com/go-jet/jet/v2 v2.11.1
@@ -26,9 +25,9 @@ require (
 	github.com/stephenafamo/bob v0.28.1
 	github.com/stretchr/testify v1.9.0
 	github.com/upper/db/v4 v4.8.0
-	github.com/uptrace/bun v1.2.1
-	github.com/uptrace/bun/dialect/pgdialect v1.2.1
-	github.com/uptrace/bun/driver/pgdriver v1.2.1
+	github.com/uptrace/bun v1.2.2
+	github.com/uptrace/bun/dialect/pgdialect v1.2.2
+	github.com/uptrace/bun/driver/pgdriver v1.2.2
 	github.com/vingarcia/ksql v1.12.0
 	github.com/vingarcia/ksql/adapters/kpgx5 v1.12.0
 	github.com/volatiletech/sqlboiler/v4 v4.16.2
@@ -43,9 +42,9 @@ require (
 )
 
 require (
-	ariga.io/atlas v0.26.0 // indirect
+	ariga.io/atlas v0.26.1 // indirect
 	filippo.io/edwards25519 v1.1.0 // indirect
-	github.com/Masterminds/semver/v3 v3.2.1 // indirect
+	github.com/Masterminds/semver/v3 v3.3.0 // indirect
 	github.com/aarondl/json v0.0.0-20221020222930-8b0db17ef1bf // indirect
 	github.com/agext/levenshtein v1.2.3 // indirect
 	github.com/apparentlymart/go-textseg/v15 v15.0.0 // indirect
@@ -73,7 +72,7 @@ require (
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/css v1.0.1 // indirect
 	github.com/hashicorp/golang-lru v1.0.2 // indirect
-	github.com/hashicorp/hcl/v2 v2.21.0 // indirect
+	github.com/hashicorp/hcl/v2 v2.22.0 // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
 	github.com/jackc/pgconn v1.14.3 // indirect
 	github.com/jackc/pgio v1.0.0 // indirect
@@ -98,6 +97,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
+	github.com/puzpuzpuz/xsync/v3 v3.4.0 // indirect
 	github.com/qdm12/reprint v0.0.0-20200326205758-722754a53494 // indirect
 	github.com/rogpeppe/go-internal v1.12.0 // indirect
 	github.com/segmentio/fasthash v1.0.3 // indirect
