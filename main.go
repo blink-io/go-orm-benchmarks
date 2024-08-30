@@ -135,6 +135,7 @@ func runBenchmarks(orms ListOpts) {
 		"dbx":       bench.CreateDbx(),
 		"bob":       bench.CreateBob(),
 		"ksql":      bench.CreateKsql(),
+		"sq":        bench.CreateSq(),
 	}
 
 	table := new(tabwriter.Writer)
