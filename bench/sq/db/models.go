@@ -15,3 +15,5 @@ type MODELS struct {
 	RIGHT   sq.BooleanField
 	COUNTER sq.NumberField
 }
+
+var ModelsTable = sq.New[MODELS]("mm")
