@@ -41,12 +41,14 @@ func (sq *Sq) Close() error {
 func (sq *Sq) Insert(b *testing.B) {
 	m := NewModelAlt()
 
+	tbl := db.ModelsTable
+
 	b.ReportAllocs()
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
 		m.Id = 0
-		err := sq.insertModel(&m)
+		err := sq.insertModel(tbl, &m)
 		if err != nil {
 			helper.SetError(b, sq.Name(), "Insert", err.Error())
 		}
@@ -59,10 +61,11 @@ func (sq *Sq) InsertMulti(b *testing.B) {
 		ms = append(ms, NewModelAlt())
 	}
 
+	tbl := db.ModelsTable
+
 	b.ReportAllocs()
 	b.ResetTimer()
 
-	tbl := db.ModelsTable
 	for i := 0; i < b.N; i++ {
 		query := qm.Postgres.InsertInto(tbl).Columns(tbl.NAME, tbl.TITLE, tbl.FAX, tbl.WEB, tbl.AGE, tbl.RIGHT, tbl.COUNTER)
 		for _, m := range ms {
@@ -77,8 +80,9 @@ func (sq *Sq) InsertMulti(b *testing.B) {
 
 func (sq *Sq) Update(b *testing.B) {
 	m := NewModelAlt()
+	tbl := db.ModelsTable
 
-	err := sq.insertModel(&m)
+	err := sq.insertModel(tbl, &m)
 	if err != nil {
 		helper.SetError(b, sq.Name(), "Update", err.Error())
 	}
@@ -86,7 +90,6 @@ func (sq *Sq) Update(b *testing.B) {
 	b.ReportAllocs()
 	b.ResetTimer()
 
-	tbl := db.ModelsTable
 	for i := 0; i < b.N; i++ {
 		query := qm.Postgres.Update(tbl).Set(
 			tbl.NAME.SetString(m.Name),
@@ -106,8 +109,9 @@ func (sq *Sq) Update(b *testing.B) {
 
 func (sq *Sq) Read(b *testing.B) {
 	m := NewModelAlt()
+	tbl := db.ModelsTable
 
-	err := sq.insertModel(&m)
+	err := sq.insertModel(tbl, &m)
 	if err != nil {
 		helper.SetError(b, sq.Name(), "Read", err.Error())
 	}
@@ -115,7 +119,6 @@ func (sq *Sq) Read(b *testing.B) {
 	b.ReportAllocs()
 	b.ResetTimer()
 
-	tbl := db.ModelsTable
 	for i := 0; i < b.N; i++ {
 		query := qm.Postgres.From(tbl).Where(tbl.ID.EqInt(m.Id))
 		_, err = qm.FetchOne(sq.conn, query, sq.modelRowMapper(tbl))
@@ -127,10 +130,11 @@ func (sq *Sq) Read(b *testing.B) {
 
 func (sq *Sq) ReadSlice(b *testing.B) {
 	m := NewModelAlt()
+	tbl := db.ModelsTable
 
 	for i := 0; i < 100; i++ {
 		m.Id = 0
-		err := sq.insertModel(&m)
+		err := sq.insertModel(tbl, &m)
 		if err != nil {
 			helper.SetError(b, sq.Name(), "ReadSlice", err.Error())
 		}
@@ -139,7 +143,6 @@ func (sq *Sq) ReadSlice(b *testing.B) {
 	b.ReportAllocs()
 	b.ResetTimer()
 
-	tbl := db.ModelsTable
 	for i := 0; i < b.N; i++ {
 		query := qm.Postgres.From(tbl).Where(tbl.ID.GtInt(0)).Limit(100)
 		_, err := qm.FetchAll(sq.conn, query, sq.modelRowMapper(tbl))
@@ -149,9 +152,9 @@ func (sq *Sq) ReadSlice(b *testing.B) {
 	}
 }
 
-func (sq *Sq) insertModel(m *Model) error {
+func (sq *Sq) insertModel(tbl db.MODELS, m *Model) error {
 	var err error
-	tbl := db.ModelsTable
+	//tbl := db.ModelsTable
 	query := qm.Postgres.InsertInto(tbl).
 		Columns(tbl.NAME, tbl.TITLE, tbl.FAX, tbl.WEB, tbl.AGE, tbl.RIGHT, tbl.COUNTER).
 		Values(m.Name, m.Title, m.Fax, m.Web, m.Age, m.Right, m.Counter)
