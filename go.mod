@@ -7,7 +7,7 @@ require (
 	gitee.com/chunanyong/zorm v1.7.7
 	github.com/aarondl/opt v0.0.0-20240623220848-083f18ab9536
 	github.com/astaxie/beego v1.12.3
-	github.com/bokwoon95/sq v0.5.0
+	github.com/bokwoon95/sq v0.5.1
 	github.com/doug-martin/goqu/v9 v9.19.0
 	github.com/friendsofgo/errors v0.9.2
 	github.com/go-jet/jet/v2 v2.11.1
@@ -25,9 +25,9 @@ require (
 	github.com/stephenafamo/bob v0.28.1
 	github.com/stretchr/testify v1.9.0
 	github.com/upper/db/v4 v4.8.0
-	github.com/uptrace/bun v1.2.2
-	github.com/uptrace/bun/dialect/pgdialect v1.2.2
-	github.com/uptrace/bun/driver/pgdriver v1.2.2
+	github.com/uptrace/bun v1.2.3
+	github.com/uptrace/bun/dialect/pgdialect v1.2.3
+	github.com/uptrace/bun/driver/pgdriver v1.2.3
 	github.com/vingarcia/ksql v1.12.0
 	github.com/vingarcia/ksql/adapters/kpgx5 v1.12.0
 	github.com/volatiletech/sqlboiler/v4 v4.16.2
