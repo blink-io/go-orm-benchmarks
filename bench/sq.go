@@ -66,8 +66,11 @@ func (sq *Sq) InsertMulti(b *testing.B) {
 	b.ReportAllocs()
 	b.ResetTimer()
 
+	cols := []qm.Field{
+		tbl.NAME, tbl.TITLE, tbl.FAX, tbl.WEB, tbl.AGE, tbl.RIGHT, tbl.COUNTER,
+	}
 	for i := 0; i < b.N; i++ {
-		query := qm.Postgres.InsertInto(tbl).Columns(tbl.NAME, tbl.TITLE, tbl.FAX, tbl.WEB, tbl.AGE, tbl.RIGHT, tbl.COUNTER)
+		query := qm.Postgres.InsertInto(tbl).Columns(cols...)
 		for _, m := range ms {
 			query = query.Values(m.Name, m.Title, m.Fax, m.Web, m.Age, m.Right, m.Counter)
 		}
