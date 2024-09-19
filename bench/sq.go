@@ -42,13 +42,13 @@ func (sq *Sq) Insert(b *testing.B) {
 	m := NewModelAlt()
 
 	tbl := db.ModelsTable
-
+	fields := []qm.Field{tbl.NAME, tbl.TITLE, tbl.FAX, tbl.WEB, tbl.AGE, tbl.RIGHT, tbl.COUNTER}
 	b.ReportAllocs()
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
 		m.Id = 0
-		err := sq.insertModel(tbl, &m)
+		err := sq.insertModelWithFields(&m, tbl, fields...)
 		if err != nil {
 			helper.SetError(b, sq.Name(), "Insert", err.Error())
 		}
@@ -84,8 +84,9 @@ func (sq *Sq) InsertMulti(b *testing.B) {
 func (sq *Sq) Update(b *testing.B) {
 	m := NewModelAlt()
 	tbl := db.ModelsTable
+	fields := []qm.Field{tbl.NAME, tbl.TITLE, tbl.FAX, tbl.WEB, tbl.AGE, tbl.RIGHT, tbl.COUNTER}
 
-	err := sq.insertModel(tbl, &m)
+	err := sq.insertModelWithFields(&m, tbl, fields...)
 	if err != nil {
 		helper.SetError(b, sq.Name(), "Update", err.Error())
 	}
@@ -113,8 +114,9 @@ func (sq *Sq) Update(b *testing.B) {
 func (sq *Sq) Read(b *testing.B) {
 	m := NewModelAlt()
 	tbl := db.ModelsTable
+	fields := []qm.Field{tbl.NAME, tbl.TITLE, tbl.FAX, tbl.WEB, tbl.AGE, tbl.RIGHT, tbl.COUNTER}
 
-	err := sq.insertModel(tbl, &m)
+	err := sq.insertModelWithFields(&m, tbl, fields...)
 	if err != nil {
 		helper.SetError(b, sq.Name(), "Read", err.Error())
 	}
@@ -134,10 +136,11 @@ func (sq *Sq) Read(b *testing.B) {
 func (sq *Sq) ReadSlice(b *testing.B) {
 	m := NewModelAlt()
 	tbl := db.ModelsTable
+	fields := []qm.Field{tbl.NAME, tbl.TITLE, tbl.FAX, tbl.WEB, tbl.AGE, tbl.RIGHT, tbl.COUNTER}
 
 	for i := 0; i < 100; i++ {
 		m.Id = 0
-		err := sq.insertModel(tbl, &m)
+		err := sq.insertModelWithFields(&m, tbl, fields...)
 		if err != nil {
 			helper.SetError(b, sq.Name(), "ReadSlice", err.Error())
 		}
@@ -155,11 +158,23 @@ func (sq *Sq) ReadSlice(b *testing.B) {
 	}
 }
 
-func (sq *Sq) insertModel(tbl db.MODELS, m *Model) error {
+func (sq *Sq) insertModel1(tbl db.MODELS, m *Model) error {
 	var err error
 	//tbl := db.ModelsTable
 	query := qm.Postgres.InsertInto(tbl).
 		Columns(tbl.NAME, tbl.TITLE, tbl.FAX, tbl.WEB, tbl.AGE, tbl.RIGHT, tbl.COUNTER).
+		Values(m.Name, m.Title, m.Fax, m.Web, m.Age, m.Right, m.Counter)
+	m.Id, err = qm.FetchOne(sq.conn, query, func(r *qm.Row) int {
+		return r.IntField(tbl.ID)
+	})
+	return err
+}
+
+func (sq *Sq) insertModelWithFields(m *Model, tbl db.MODELS, fs ...qm.Field) error {
+	var err error
+	//tbl := db.ModelsTable
+	query := qm.Postgres.InsertInto(tbl).
+		Columns().
 		Values(m.Name, m.Title, m.Fax, m.Web, m.Age, m.Right, m.Counter)
 	m.Id, err = qm.FetchOne(sq.conn, query, func(r *qm.Row) int {
 		return r.IntField(tbl.ID)
