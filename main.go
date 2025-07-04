@@ -134,7 +134,6 @@ func runBenchmarks(orms ListOpts) {
 		"jet":       bench.CreateJet(),
 		"goqu":      bench.CreateGoqu(),
 		"dbx":       bench.CreateDbx(),
-		"bob":       bench.CreateBob(),
 		"ksql":      bench.CreateKsql(),
 		"sq":        bench.CreateSq(),
 		"sqb":       bench.CreateSqb(),

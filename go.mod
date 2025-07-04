@@ -25,7 +25,7 @@ require (
 	github.com/lib/pq v1.10.9
 	github.com/pocketbase/dbx v1.11.0
 	github.com/samonzeweb/godb v1.0.15
-	github.com/stephenafamo/bob v0.28.1
+	github.com/stephenafamo/bob v0.38.0
 	github.com/stretchr/testify v1.10.0
 	github.com/upper/db/v4 v4.10.0
 	github.com/uptrace/bun v1.2.14
