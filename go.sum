@@ -555,6 +555,7 @@ github.com/spf13/cobra v1.6.1/go.mod h1:IOw/AERYS7UzyrGinqmz6HLUo219MORXGxhbaJUq
 github.com/spf13/pflag v1.0.3/go.mod h1:DYY7MBk1bdzusC3SYhjObp+wFpr4gzcvqqNjLnInEg4=
 github.com/spf13/pflag v1.0.5/go.mod h1:McXfInJRrz4CZXVZOBLb0bTZqETkiAhM9Iw0y3An2Bg=
 github.com/ssdb/gossdb v0.0.0-20180723034631-88f6b59b84ec/go.mod h1:QBvMkMya+gXctz3kmljlUCu/yB3GZ6oee+dUozsezQE=
+github.com/stephenafamo/bob v0.28.1/go.mod h1:S/D3dAbBZjBOcts9iv4ywsJDApFK86s3bUBulCoT6kE=
 github.com/stephenafamo/bob v0.38.0 h1:G2+VfEiP4CdpXNmq27J77UuEnw/pcieDogKQw9sRUJs=
 github.com/stephenafamo/bob v0.38.0/go.mod h1:8MbdjERiyoFRDX1HK9bcOupCayWUG0A7wrKf3wynU/k=
 github.com/stephenafamo/fakedb v0.0.0-20221230081958-0b86f816ed97 h1:XItoZNmhOih06TC02jK7l3wlpZ0XT/sPQYutDcGOQjg=
