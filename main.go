@@ -34,7 +34,7 @@ const VERSION = "v1.0.2"
 var defaultBenchmarkNames = []string{
 	//"bun", "dbr", "dbx", "goqu", "rel", "pop", "sqlc",
 	//"raw", "dbr", "sq", "bob", "sqlc", "bun", "ent", "gorm", "ksql", "pop", "sqlx", "pgx",
-	"raw", "dbr", "sq", "sqlx", "bun",
+	"raw", "dbr", "sq", "sqlx", "bun", "sqb",
 }
 
 type ListOpts []string
@@ -137,6 +137,7 @@ func runBenchmarks(orms ListOpts) {
 		"bob":       bench.CreateBob(),
 		"ksql":      bench.CreateKsql(),
 		"sq":        bench.CreateSq(),
+		"sqb":       bench.CreateSqb(),
 	}
 
 	table := new(tabwriter.Writer)
